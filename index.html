@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Notepad — Private & Intelligent</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="icon" type="image/png" href="Copilot_20260519_162923.png">
+
+</head>
+
+<body>
+
+    <div class="app-container">
+        <!-- Sidebar: Notes History -->
+        <div class="sidebar">
+            <h3>My Notes <span id="noteCount"></span></h3>
+            <ul class="note-list" id="noteList"></ul>
+            <button class="new-note-btn" id="newNoteBtn">➕ New Note</button>
+        </div>
+
+        <!-- Main Editor -->
+        <div class="main-editor">
+            <div class="toolbar">
+                <button id="boldBtn" title="Bold"><b>B</b></button>
+                <button id="italicBtn" title="Italic"><i>I</i></button>
+                <button id="underlineBtn" title="Underline"><u>U</u></button>
+                <button id="highlightBtn" title="Highlight">✦ Highlight</button>
+                <select id="fontSizeSelect">
+                    <option value="14px">Small</option>
+                    <option value="18px" selected>Medium</option>
+                    <option value="24px">Large</option>
+                </select>
+                <button id="darkModeToggle">🌙 Dark</button>
+                <button id="exportTxtBtn">⬇ Export</button>
+                <button id="voiceBtn" class="voice-btn">🎤 Voice</button>
+                <button id="passwordBtn" class="password-btn">🔑 Password</button>
+            </div>
+
+            <input type="text" class="note-title-input" id="noteTitle" placeholder="Note title...">
+
+            <div class="editor-area">
+                <div class="note-content">
+                    <textarea id="noteBody" placeholder="Start writing your note here..."></textarea>
+                    <div class="status-bar">
+                        <span id="wordCount">Words: 0</span>
+                        <span id="charCount">Chars: 0</span>
+                        <span id="autoSaveStatus">✍️ Auto-save on</span>
+                    </div>
+                </div>
+
+                <!-- To-Do List Sidebar -->
+                <div class="todo-sidebar">
+                    <h4>✦ To-Do List</h4>
+                    <div id="todoContainer"></div>
+                    <div class="todo-add-row">
+                        <input type="text" id="newTodoText" placeholder="Add a task…">
+                        <button id="addTodoBtn">Add</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Reminder Section -->
+            <div class="reminder-section">
+                <strong>⏰ Reminders</strong>
+                <div class="reminder-input">
+                    <input type="datetime-local" id="reminderDateTime">
+                    <input type="text" id="reminderMessage" placeholder="Reminder message…">
+                    <button id="setReminderBtn">Set</button>
+                </div>
+                <!-- Active reminders list -->
+                <div id="reminderList"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,730 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap');
+
+/* ── TOKENS ────────────────────────────────────────────── */
+:root {
+    --bg: #f5f0e8;
+    --surface: #faf7f2;
+    --surface-2: #f0ebe0;
+    --border: #e0d8cc;
+    --accent: #b5602a;
+    --accent-2: #d4845a;
+    --accent-soft: #f3e8de;
+    --ink: #1c1712;
+    --ink-2: #5c5248;
+    --ink-3: #8a7d72;
+    --green: #4a7c59;
+    --red: #c0392b;
+    --shadow-md: 0 8px 32px rgba(28, 23, 18, 0.10);
+    --radius: 18px;
+    --radius-sm: 10px;
+    --radius-xs: 6px;
+    --transition: 0.22s cubic-bezier(.4, 0, .2, 1);
+}
+
+body.dark {
+    --bg: #13110e;
+    --surface: #1d1a16;
+    --surface-2: #252118;
+    --border: #332e26;
+    --accent: #d4845a;
+    --accent-2: #e8a87c;
+    --accent-soft: #2a1e14;
+    --ink: #f0ebe0;
+    --ink-2: #b5aa9e;
+    --ink-3: #6b6158;
+    --green: #6aad7e;
+    --shadow-md: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+/* ── RESET & BASE ──────────────────────────────────────── */
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    transition: background var(--transition), color var(--transition),
+        border-color var(--transition), box-shadow var(--transition), opacity var(--transition);
+}
+
+body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    padding: 28px 24px;
+    min-height: 100vh;
+    line-height: 1.6;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+}
+
+/* ── LAYOUT ────────────────────────────────────────────── */
+.app-container {
+    max-width: 1520px;
+    margin: 0 auto;
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    animation: fadeUp .5s ease both;
+}
+
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(18px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ── SIDEBAR ───────────────────────────────────────────── */
+.sidebar {
+    width: 272px;
+    background: var(--surface);
+    border-radius: var(--radius);
+    padding: 22px 18px;
+    box-shadow: var(--shadow-md);
+    border: 1px solid var(--border);
+    height: fit-content;
+    position: relative;
+    overflow: hidden;
+}
+
+.sidebar::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent), var(--accent-2), transparent);
+    border-radius: var(--radius) var(--radius) 0 0;
+}
+
+.sidebar h3 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 19px;
+    font-weight: 400;
+    color: var(--ink);
+    margin-bottom: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    letter-spacing: -0.01em;
+}
+
+.sidebar h3 #noteCount {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    background: var(--accent-soft);
+    color: var(--accent);
+    padding: 2px 9px;
+    border-radius: 20px;
+    border: 1px solid color-mix(in srgb, var(--accent) 20%, transparent);
+}
+
+/* ── NOTE LIST ─────────────────────────────────────────── */
+.note-list {
+    list-style: none;
+    max-height: 460px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--border) transparent;
+}
+
+.note-list li {
+    padding: 10px 13px;
+    margin-bottom: 6px;
+    background: var(--surface-2);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    word-break: break-word;
+    border: 1px solid transparent;
+    font-size: 14px;
+    color: var(--ink-2);
+}
+
+.note-list li:hover {
+    background: var(--accent-soft);
+    border-color: color-mix(in srgb, var(--accent) 25%, transparent);
+    color: var(--ink);
+}
+
+.note-list li.active {
+    background: var(--accent-soft);
+    border-color: color-mix(in srgb, var(--accent) 35%, transparent);
+    border-left: 3px solid var(--accent);
+    color: var(--ink);
+    font-weight: 500;
+}
+
+.note-title {
+    flex: 1;
+    cursor: pointer;
+}
+
+.delete-note {
+    background: none;
+    border: none;
+    font-size: 12px;
+    cursor: pointer;
+    color: var(--ink-3);
+    padding: 3px 5px;
+    border-radius: var(--radius-xs);
+    opacity: 0.4;
+}
+
+.delete-note:hover {
+    opacity: 1;
+    color: var(--red);
+    background: none;
+    transform: none;
+}
+
+.new-note-btn {
+    width: 100%;
+    padding: 11px;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: 40px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 16px;
+    box-shadow: 0 4px 16px color-mix(in srgb, var(--accent) 35%, transparent);
+}
+
+.new-note-btn:hover {
+    background: var(--accent-2);
+    transform: translateY(-1px);
+}
+
+/* ── MAIN EDITOR ───────────────────────────────────────── */
+.main-editor {
+    flex: 1;
+    min-width: 300px;
+    background: var(--surface);
+    border-radius: var(--radius);
+    padding: 28px 30px;
+    box-shadow: var(--shadow-md);
+    border: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+}
+
+.main-editor::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent), var(--accent-2), transparent);
+    border-radius: var(--radius) var(--radius) 0 0;
+}
+
+/* ── TOOLBAR ───────────────────────────────────────────── */
+.toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 22px;
+    padding-bottom: 18px;
+    border-bottom: 1px solid var(--border);
+    align-items: center;
+}
+
+.toolbar button,
+.toolbar select {
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    color: var(--ink-2);
+    padding: 6px 14px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.toolbar button:hover,
+.toolbar select:hover {
+    background: var(--accent-soft);
+    border-color: color-mix(in srgb, var(--accent) 30%, transparent);
+    color: var(--accent);
+    transform: none;
+}
+
+.toolbar select {
+    appearance: none;
+    padding-right: 28px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%238a7d72' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+}
+
+/* ── NOTE TITLE ────────────────────────────────────────── */
+.note-title-input {
+    width: 100%;
+    font-family: 'DM Serif Display', serif;
+    font-size: 28px;
+    font-weight: 400;
+    font-style: italic;
+    padding: 8px 0 14px;
+    border: none;
+    outline: none;
+    background: transparent;
+    color: var(--ink);
+    margin-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+    letter-spacing: -0.02em;
+}
+
+.note-title-input::placeholder {
+    color: var(--ink-3);
+    font-style: italic;
+}
+
+/* ── EDITOR AREA ───────────────────────────────────────── */
+.editor-area {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-top: 18px;
+}
+
+.note-content {
+    flex: 2;
+    min-width: 250px;
+}
+
+textarea {
+    width: 100%;
+    height: 340px;
+    padding: 18px 20px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    line-height: 1.75;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border);
+    background: var(--bg);
+    color: var(--ink);
+    resize: vertical;
+    outline: none;
+    caret-color: var(--accent);
+}
+
+textarea:focus {
+    border-color: color-mix(in srgb, var(--accent) 50%, transparent);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 10%, transparent);
+}
+
+textarea::placeholder {
+    color: var(--ink-3);
+}
+
+.status-bar {
+    margin-top: 10px;
+    font-size: 12px;
+    color: var(--ink-3);
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 6px;
+    padding: 0 2px;
+}
+
+/* ── TO-DO SIDEBAR ─────────────────────────────────────── */
+.todo-sidebar {
+    flex: 1;
+    min-width: 210px;
+    background: var(--surface-2);
+    border-radius: var(--radius-sm);
+    padding: 18px 16px;
+    border: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+}
+
+.todo-sidebar h4 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 16px;
+    font-weight: 400;
+    color: var(--ink);
+    margin-bottom: 14px;
+    letter-spacing: -0.01em;
+}
+
+/* ── TODO ITEMS ────────────────────────────────────────── */
+#todoContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    flex: 1;
+}
+
+.todo-empty {
+    font-size: 13px;
+    color: var(--ink-3);
+    text-align: center;
+    padding: 16px 0;
+    font-style: italic;
+}
+
+.todo-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 9px 12px;
+    animation: slideIn 0.18s ease both;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-5px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.todo-item:hover {
+    border-color: color-mix(in srgb, var(--accent) 30%, transparent);
+}
+
+.todo-item.todo-done {
+    opacity: 0.55;
+    background: var(--surface-2);
+}
+
+.todo-item.todo-done .todo-text {
+    text-decoration: line-through;
+    color: var(--ink-3);
+}
+
+/* Custom checkbox */
+.todo-check-wrapper {
+    position: relative;
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+    cursor: pointer;
+}
+
+.todo-check-wrapper input[type="checkbox"] {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.todo-checkmark {
+    position: absolute;
+    inset: 0;
+    border-radius: 5px;
+    border: 1.5px solid var(--border);
+    background: var(--bg);
+    transition: background var(--transition), border-color var(--transition);
+}
+
+.todo-check-wrapper input:checked+.todo-checkmark {
+    background: var(--accent);
+    border-color: var(--accent);
+}
+
+.todo-check-wrapper input:checked+.todo-checkmark::after {
+    content: '';
+    display: block;
+    width: 5px;
+    height: 9px;
+    border: 2px solid #fff;
+    border-top: none;
+    border-left: none;
+    transform: rotate(45deg);
+    position: absolute;
+    top: 1px;
+    left: 5px;
+}
+
+.todo-text {
+    flex: 1;
+    font-size: 13.5px;
+    color: var(--ink-2);
+    outline: none;
+    cursor: text;
+    word-break: break-word;
+    line-height: 1.4;
+}
+
+.todo-text:focus {
+    color: var(--ink);
+}
+
+.todo-delete-btn {
+    background: none;
+    border: none;
+    color: var(--ink-3);
+    font-size: 11px;
+    padding: 2px 5px;
+    border-radius: var(--radius-xs);
+    opacity: 0;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.todo-item:hover .todo-delete-btn {
+    opacity: 1;
+}
+
+.todo-delete-btn:hover {
+    color: var(--red);
+    background: none;
+    transform: none;
+}
+
+/* ── ADD TODO ROW ──────────────────────────────────────── */
+.todo-add-row {
+    display: flex;
+    gap: 8px;
+    margin-top: 12px;
+}
+
+#newTodoText {
+    flex: 1;
+    padding: 8px 12px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border);
+    background: var(--surface);
+    color: var(--ink);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    outline: none;
+    min-width: 0;
+}
+
+#newTodoText:focus {
+    border-color: color-mix(in srgb, var(--accent) 50%, transparent);
+    box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent) 10%, transparent);
+}
+
+/* ── GLOBAL BUTTONS ────────────────────────────────────── */
+button {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    padding: 7px 14px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 500;
+    transition: background var(--transition), transform var(--transition), box-shadow var(--transition);
+}
+
+button:hover {
+    background: var(--accent-2);
+    transform: translateY(-1px);
+}
+
+button:active {
+    transform: translateY(0);
+}
+
+.voice-btn {
+    background: var(--green) !important;
+}
+
+.voice-btn:hover {
+    background: color-mix(in srgb, var(--green) 80%, black) !important;
+}
+
+.password-btn {
+    background: var(--surface-2) !important;
+    border: 1px solid var(--border) !important;
+    color: var(--ink-2) !important;
+}
+
+.password-btn:hover {
+    background: var(--accent-soft) !important;
+    border-color: color-mix(in srgb, var(--accent) 30%, transparent) !important;
+    color: var(--accent) !important;
+}
+
+/* ── REMINDER SECTION ──────────────────────────────────── */
+.reminder-section {
+    margin-top: 22px;
+    padding-top: 18px;
+    border-top: 1px solid var(--border);
+}
+
+.reminder-section>strong {
+    font-family: 'DM Serif Display', serif;
+    font-weight: 400;
+    font-size: 15px;
+    color: var(--ink-2);
+    display: block;
+    margin-bottom: 10px;
+}
+
+.reminder-input {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.reminder-input input {
+    padding: 8px 12px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border);
+    background: var(--surface-2);
+    color: var(--ink);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    outline: none;
+}
+
+.reminder-input input:focus {
+    border-color: color-mix(in srgb, var(--accent) 50%, transparent);
+    box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent) 10%, transparent);
+}
+
+/* ── REMINDER LIST ─────────────────────────────────────── */
+#reminderList {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 14px;
+}
+
+.reminder-empty {
+    font-size: 13px;
+    color: var(--ink-3);
+    font-style: italic;
+}
+
+.reminder-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 11px 14px;
+    animation: slideIn 0.18s ease both;
+}
+
+.reminder-item.reminder-triggered {
+    opacity: 0.55;
+    border-style: dashed;
+}
+
+.reminder-icon {
+    font-size: 18px;
+    flex-shrink: 0;
+}
+
+.reminder-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+}
+
+.reminder-msg {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--ink);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.reminder-triggered .reminder-msg {
+    text-decoration: line-through;
+    color: var(--ink-3);
+}
+
+.reminder-time {
+    font-size: 11.5px;
+    color: var(--ink-3);
+}
+
+.reminder-delete-btn {
+    background: none;
+    border: none;
+    color: var(--ink-3);
+    font-size: 12px;
+    padding: 4px 6px;
+    border-radius: var(--radius-xs);
+    opacity: 0;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.reminder-item:hover .reminder-delete-btn {
+    opacity: 1;
+}
+
+.reminder-delete-btn:hover {
+    color: var(--red);
+    background: none;
+    transform: none;
+}
+
+/* ── SCROLLBAR ─────────────────────────────────────────── */
+::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--ink-3);
+}
+
+/* ── RESPONSIVE ────────────────────────────────────────── */
+@media (max-width: 800px) {
+    body {
+        padding: 16px 12px;
+    }
+
+    .sidebar {
+        width: 100%;
+    }
+
+    .main-editor {
+        padding: 20px 16px;
+    }
+
+    .note-title-input {
+        font-size: 22px;
+    }
+
+    .toolbar {
+        gap: 5px;
+    }
+}

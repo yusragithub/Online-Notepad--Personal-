@@ -728,3 +728,30 @@ button:active {
         gap: 5px;
     }
 }
+
+.note-body-editable {
+    width: 100%;
+    min-height: 340px;
+    padding: 18px 20px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
+    line-height: 1.75;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border);
+    background: var(--bg);
+    color: var(--ink);
+    resize: vertical;
+    outline: none;
+    overflow-y: auto;
+    caret-color: var(--accent);
+}
+
+.note-body-editable:focus {
+    border-color: color-mix(in srgb, var(--accent) 50%, transparent);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 10%, transparent);
+}
+
+.note-body-editable:empty:before {
+    content: attr(placeholder);
+    color: var(--ink-3);
+}

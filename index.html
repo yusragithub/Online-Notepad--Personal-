@@ -3,25 +3,30 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Smart Notepad — Private & Intelligent</title>
-    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Paperly — private notepad</title>
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap"
+        rel="stylesheet">
+    <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="icon" type="image/png" href="Copilot_20260519_162923.jpg">
-
+    <!-- External CSS -->
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="favicon.png">
 </head>
 
 <body>
 
     <div class="app-container">
-        <!-- Sidebar: Notes History -->
+        <!-- SIDEBAR: Notes History -->
         <div class="sidebar">
             <h3>My Notes <span id="noteCount"></span></h3>
             <ul class="note-list" id="noteList"></ul>
             <button class="new-note-btn" id="newNoteBtn">➕ New Note</button>
         </div>
 
-        <!-- Main Editor -->
+        <!-- MAIN EDITOR (Rich Text) -->
         <div class="main-editor">
             <div class="toolbar">
                 <button id="boldBtn" title="Bold"><b>B</b></button>
@@ -43,7 +48,9 @@
 
             <div class="editor-area">
                 <div class="note-content">
-                    <textarea id="noteBody" placeholder="Start writing your note here..."></textarea>
+                    <!-- Rich Text Editor (contenteditable) -->
+                    <div id="noteBody" class="note-body-editable" contenteditable="true"
+                        placeholder="Start writing your note here..."></div>
                     <div class="status-bar">
                         <span id="wordCount">Words: 0</span>
                         <span id="charCount">Chars: 0</span>
@@ -51,7 +58,7 @@
                     </div>
                 </div>
 
-                <!-- To-Do List Sidebar -->
+                <!-- TO-DO Sidebar -->
                 <div class="todo-sidebar">
                     <h4>✦ To-Do List</h4>
                     <div id="todoContainer"></div>
@@ -62,7 +69,7 @@
                 </div>
             </div>
 
-            <!-- Reminder Section -->
+            <!-- REMINDER Section -->
             <div class="reminder-section">
                 <strong>⏰ Reminders...</strong>
                 <div class="reminder-input">
@@ -70,12 +77,12 @@
                     <input type="text" id="reminderMessage" placeholder="Reminder message…">
                     <button id="setReminderBtn">Set</button>
                 </div>
-                <!-- Active reminders list -->
                 <div id="reminderList"></div>
             </div>
         </div>
     </div>
 
+    <!-- External JavaScript -->
     <script src="script.js"></script>
 </body>
 
